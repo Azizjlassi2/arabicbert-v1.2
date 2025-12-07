@@ -20,3 +20,10 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/arabicbert-api:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Deploy to Render
+        if: github.ref == 'refs/heads/main' # Only deploy from main branch
+        env:
+          DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$DEPLOY_URL"
