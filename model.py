@@ -303,9 +303,9 @@ def authenticate():
         abort(401, description="Unauthorized")
 
 # Endpoint principal
-@app.route('/v1/models/arabicbert/predict', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
-    authenticate()
+   # authenticate()
     data = request.json
     if not data or 'task' not in data:
         abort(400, description="Missing 'task' field")
@@ -349,6 +349,44 @@ def predict():
         }
     }
     return jsonify(response), 200
+
+@app.route('/info', methods=['GET'])
+def model_info():
+    """
+    Retourne les informations sur le modèle ArabicBERT et les endpoints disponibles.
+    """
+   # authenticate()  # si tu veux protéger l'info
+
+    info = {
+        "model_name": "ArabicBERT",
+        "version": MODEL_VERSION,
+        "description": "BERT-based model pré-entraîné sur un large corpus arabe, supporte MSA et dialecte tunisien.",
+        "architecture": "BERT-base (12 couches, 12 têtes d'attention, 768 dimensions cachées)",
+        "tasks_supported": [
+            "text_classification",
+            "named_entity_recognition",
+            "sentiment_analysis",
+            "question_answering"
+        ],
+        "endpoints": [
+            {
+                "path": "/predict",
+                "method": "POST",
+                "description": "Exécute une tâche spécifique sur le texte fourni. Paramètres: task, text/input, context (pour QA), question (pour QA), options"
+            },
+            {
+                "path": "/info",
+                "method": "GET",
+                "description": "Retourne les informations sur le modèle et les endpoints disponibles."
+            }
+        ],
+        "max_sequence_length": MAX_SEQUENCE_LENGTH,
+        "author": "Equipe AI+ Platform",
+        "contact": "support@ai-tunisia.com"
+    }
+
+    return jsonify(info), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

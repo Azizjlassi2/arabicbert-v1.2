@@ -1,0 +1,278 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "abort",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "unittest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "unittest",
+        "description": "unittest",
+        "detail": "unittest",
+        "documentation": {}
+    },
+    {
+        "label": "patch",
+        "importPath": "unittest.mock",
+        "description": "unittest.mock",
+        "isExtraImport": true,
+        "detail": "unittest.mock",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_text_classification",
+        "importPath": "model",
+        "description": "model",
+        "isExtraImport": true,
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_ner",
+        "importPath": "model",
+        "description": "model",
+        "isExtraImport": true,
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_sentiment_analysis",
+        "importPath": "model",
+        "description": "model",
+        "isExtraImport": true,
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_question_answering",
+        "importPath": "model",
+        "description": "model",
+        "isExtraImport": true,
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "model",
+        "description": "model",
+        "isExtraImport": true,
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "normalize",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def normalize(text: str) -> str:\n    # simple normalisation : ponctuation, variantes orthographiques, etc.\n    text = re.sub(r'[؟!,.؛:]',' ', text)\n    # remplacer hamza/variants, ya, ta marbuta etc.\n    text = text.replace('أ', 'ا').replace('إ', 'ا').replace('ى', 'ي')  # etc.\n    return text\ndef simulate_text_classification(text: str) -> dict:\n    \"\"\"\n    Simulation de classification de texte via mots-clés enrichis.\n    Retourne la catégorie avec le plus de correspondances de mots-clés.",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_text_classification",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def simulate_text_classification(text: str) -> dict:\n    \"\"\"\n    Simulation de classification de texte via mots-clés enrichis.\n    Retourne la catégorie avec le plus de correspondances de mots-clés.\n    \"\"\"\n    t = normalize(text.lower())\n    matches = {}\n    for cat, patterns in TOPIC_KEYWORDS.items():\n        count = sum(1 for p in patterns if re.search(p, t))\n        if count > 0:",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "normalize_arabic",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def normalize_arabic(text: str) -> str:\n    \"\"\"\n    Normalisation basique : unifie certaines lettres/variantes\n    – simplification alifs et normalisation de l’écriture.\n    \"\"\"\n    # ex : alif hamza → alif, alef madda etc.\n    text = text.replace(\"أ\", \"ا\").replace(\"إ\", \"ا\").replace(\"آ\", \"ا\")\n    # remplacer ta marbuta à ha normale (optionnel selon usage)\n    text = text.replace(\"ة\", \"ه\")\n    # compléter selon besoin (ya vs ي, alifs, kasra/fatha/hamza, etc.)",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_ner",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def simulate_ner(text: str) -> list[dict[str, any]]:\n    \"\"\"\n    Simulation NER via gazetteer + regex étendus (arabe + translittérations).\n    Parcours tous les patterns, renvoie toutes les entités détectées.\n    \"\"\"\n    entities: list[dict[str, any]] = []\n    t = normalize_arabic(text)\n    for ent_type, patterns in NER_PATTERNS.items():\n        for pattern in patterns:\n            for match in re.finditer(pattern, t, flags=re.IGNORECASE):",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_sentiment_analysis",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def simulate_sentiment_analysis(text: str, language: str = \"ar\") -> dict:\n    \"\"\"Simulation d'analyse de sentiment via polarité lexicale enrichie.\"\"\"\n    text_lower = text.lower()\n    positive_keywords = ['ممتازة', 'بهية', 'فيسع', 'أنصح', 'نرجعلو', 'رائع', 'جميل', 'مفيد', 'سعيد', 'حلو', 'برافو', 'شكرا', 'مثالي']\n    negative_keywords = ['ممل', 'ما عجبنيش', 'برشا', 'سيء', 'كريه', 'مشكلة', 'فشل', 'غبي', 'مضيع', 'حقير', 'مخيب', 'غير مناسب']\n    neutral_keywords = ['عادي', 'مقبول', 'متوسط', 'لا بأس', 'جيد جزئيا']\n    pos_count = sum(1 for kw in positive_keywords if kw in text_lower)\n    neg_count = sum(1 for kw in negative_keywords if kw in text_lower)\n    neu_count = sum(1 for kw in neutral_keywords if kw in text_lower)\n    total = pos_count + neg_count + neu_count",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "simulate_question_answering",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def simulate_question_answering(context: str, question: str) -> dict:\n    \"\"\"Simulation extractive QA via recherche de span enrichie.\"\"\"\n    question_lower = question.lower()\n    # Pattern pour capitale\n    if re.search(r'عاصمة\\s+تونس', question_lower):\n        span = re.search(r'عاصمة.*?تونس', context)\n        if span:\n            return {\"answer\": span.group().strip(), \"start\": span.start(), \"end\": span.end(), \"confidence\": 0.97}\n    # Pattern pour indépendance\n    elif re.search(r'استقلالها|استقلال\\s+تونس', question_lower):",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "authenticate",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def authenticate():\n    auth_header = request.headers.get('Authorization')\n    if not auth_header or auth_header != f'Bearer {API_KEY}':\n        abort(401, description=\"Unauthorized\")\n# Endpoint principal\n@app.route('/predict', methods=['POST'])\ndef predict():\n   # authenticate()\n    data = request.json\n    if not data or 'task' not in data:",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "predict",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def predict():\n   # authenticate()\n    data = request.json\n    if not data or 'task' not in data:\n        abort(400, description=\"Missing 'task' field\")\n    task = data['task']\n    text = data.get('text') or data.get('input', '')\n    context = data.get('context', '')\n    question = data.get('question', '')\n    options = data.get('options', {})",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "model_info",
+        "kind": 2,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "def model_info():\n    \"\"\"\n    Retourne les informations sur le modèle ArabicBERT et les endpoints disponibles.\n    \"\"\"\n   # authenticate()  # si tu veux protéger l'info\n    info = {\n        \"model_name\": \"ArabicBERT\",\n        \"version\": MODEL_VERSION,\n        \"description\": \"BERT-based model pré-entraîné sur un large corpus arabe, supporte MSA et dialecte tunisien.\",\n        \"architecture\": \"BERT-base (12 couches, 12 têtes d'attention, 768 dimensions cachées)\",",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "app = Flask(__name__)\n# Configuration\nAPI_KEY = \"YOUR_API_KEY\"\nMODEL_VERSION = \"arabicbert-v1.2\"\nMAX_SEQUENCE_LENGTH = 512\nTOPIC_KEYWORDS = {\n  \"politique\": [\n    \"(?:حكومة|برلمان|انتخابات|سياسة|رئيس|وزير|دستور|قانون|مؤتمر|قرار|معارضة|تحالف|تظاهرة|استفتاء|حملة انتخابية|حكم|برلمان تونسي|سياسي|سياسيين|سياسة داخلية|أزمة سياسية|depute|gouvernement|vote|ministre|président)\",\n    \"(?:politique|dawla|idara|vote|campagne|siyasah)\"\n  ],",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "API_KEY",
+        "kind": 5,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "API_KEY = \"YOUR_API_KEY\"\nMODEL_VERSION = \"arabicbert-v1.2\"\nMAX_SEQUENCE_LENGTH = 512\nTOPIC_KEYWORDS = {\n  \"politique\": [\n    \"(?:حكومة|برلمان|انتخابات|سياسة|رئيس|وزير|دستور|قانون|مؤتمر|قرار|معارضة|تحالف|تظاهرة|استفتاء|حملة انتخابية|حكم|برلمان تونسي|سياسي|سياسيين|سياسة داخلية|أزمة سياسية|depute|gouvernement|vote|ministre|président)\",\n    \"(?:politique|dawla|idara|vote|campagne|siyasah)\"\n  ],\n  \"économie\": [\n    \"(?:اقتصاد|سوق|بنك|عملة|نمو|بطالة|تضخم|تجارة|مالية|استثمار|رأسمال|دين|ميزانية|تصدير|استيراد|سعر|أسعار|فلوس|دنانير|عملة صعبة|بيع و شراء|اقتصادي|inflation|commerce|budget|taxes|finance|recession|import|export)\",",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL_VERSION",
+        "kind": 5,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "MODEL_VERSION = \"arabicbert-v1.2\"\nMAX_SEQUENCE_LENGTH = 512\nTOPIC_KEYWORDS = {\n  \"politique\": [\n    \"(?:حكومة|برلمان|انتخابات|سياسة|رئيس|وزير|دستور|قانون|مؤتمر|قرار|معارضة|تحالف|تظاهرة|استفتاء|حملة انتخابية|حكم|برلمان تونسي|سياسي|سياسيين|سياسة داخلية|أزمة سياسية|depute|gouvernement|vote|ministre|président)\",\n    \"(?:politique|dawla|idara|vote|campagne|siyasah)\"\n  ],\n  \"économie\": [\n    \"(?:اقتصاد|سوق|بنك|عملة|نمو|بطالة|تضخم|تجارة|مالية|استثمار|رأسمال|دين|ميزانية|تصدير|استيراد|سعر|أسعار|فلوس|دنانير|عملة صعبة|بيع و شراء|اقتصادي|inflation|commerce|budget|taxes|finance|recession|import|export)\",\n    \"(?:flous|floos|dinars|investissement|economy|commerce|taxe|taux|business|economique)\"",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_SEQUENCE_LENGTH",
+        "kind": 5,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "MAX_SEQUENCE_LENGTH = 512\nTOPIC_KEYWORDS = {\n  \"politique\": [\n    \"(?:حكومة|برلمان|انتخابات|سياسة|رئيس|وزير|دستور|قانون|مؤتمر|قرار|معارضة|تحالف|تظاهرة|استفتاء|حملة انتخابية|حكم|برلمان تونسي|سياسي|سياسيين|سياسة داخلية|أزمة سياسية|depute|gouvernement|vote|ministre|président)\",\n    \"(?:politique|dawla|idara|vote|campagne|siyasah)\"\n  ],\n  \"économie\": [\n    \"(?:اقتصاد|سوق|بنك|عملة|نمو|بطالة|تضخم|تجارة|مالية|استثمار|رأسمال|دين|ميزانية|تصدير|استيراد|سعر|أسعار|فلوس|دنانير|عملة صعبة|بيع و شراء|اقتصادي|inflation|commerce|budget|taxes|finance|recession|import|export)\",\n    \"(?:flous|floos|dinars|investissement|economy|commerce|taxe|taux|business|economique)\"\n  ],",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "TOPIC_KEYWORDS",
+        "kind": 5,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "TOPIC_KEYWORDS = {\n  \"politique\": [\n    \"(?:حكومة|برلمان|انتخابات|سياسة|رئيس|وزير|دستور|قانون|مؤتمر|قرار|معارضة|تحالف|تظاهرة|استفتاء|حملة انتخابية|حكم|برلمان تونسي|سياسي|سياسيين|سياسة داخلية|أزمة سياسية|depute|gouvernement|vote|ministre|président)\",\n    \"(?:politique|dawla|idara|vote|campagne|siyasah)\"\n  ],\n  \"économie\": [\n    \"(?:اقتصاد|سوق|بنك|عملة|نمو|بطالة|تضخم|تجارة|مالية|استثمار|رأسمال|دين|ميزانية|تصدير|استيراد|سعر|أسعار|فلوس|دنانير|عملة صعبة|بيع و شراء|اقتصادي|inflation|commerce|budget|taxes|finance|recession|import|export)\",\n    \"(?:flous|floos|dinars|investissement|economy|commerce|taxe|taux|business|economique)\"\n  ],\n  \"culture\": [",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "NER_PATTERNS",
+        "kind": 5,
+        "importPath": "model",
+        "description": "model",
+        "peekOfCode": "NER_PATTERNS = {\n    \"PER\": [\n        # noms prédéfinis — prénom + nom (gazetteer minimal, à enrichir)\n        r\"\\b(قيس سعيد|الحبيب بورقيبة|محمد بن علي|أحمد بن محمد|علي عبد الله|سلمى بن خليفة|يوسف الزيات|منى التونسي|فاطمة الزهراء|محمد سلام)\\b\",\n        # translittérations latines / “Arabizi” / noms latins « fréquents »\n        r\"\\b(Mohamed|Ahmed|Ali|Said|Bourguiba|Hassan|Fateh|Salim|Youssef|Fatma|Mona)\\b\",\n    ],\n    \"LOC\": [\n        # top-onymes connus (pays, villes, régions, lieux célèbres)\n        r\"\\b(تونس|صفاقس|سوسة|القيروان|المنستير|دبي|القاهرة|باريس|مراكش|نابل|بنزرت|قابس|صفاقس الكبرى|وسط تونس|جربة)\\b\",",
+        "detail": "model",
+        "documentation": {}
+    },
+    {
+        "label": "TestArabicBERTSimulation",
+        "kind": 6,
+        "importPath": "test_app",
+        "description": "test_app",
+        "peekOfCode": "class TestArabicBERTSimulation(unittest.TestCase):\n    def test_text_classification(self):\n        \"\"\"Test de classification thématique pour cas nominaux et par défaut.\"\"\"\n        # Cas sport\n        result = simulate_text_classification(\"الفريق التونسي فاز بالبطولة الأفريقية\")\n        self.assertEqual(result[\"category\"], \"sport\")\n        # Cas santé\n        result = simulate_text_classification(\"أعلنت وزارة الصحة عن إصابات جديدة بكورونا\")\n        self.assertEqual(result[\"category\"], \"santé\")\n        # Cas politique (nouveau)",
+        "detail": "test_app",
+        "documentation": {}
+    }
+]
